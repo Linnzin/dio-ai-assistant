@@ -57,9 +57,9 @@ flowchart TD
 | Componente | Descrição |
 | --- | --- |
 | Interface | Chatbot interativo desenvolvido em Streamlit |
-| LLM | Modelo de linguagem avançado via API (ex: Gemini / GPT-4) |
+| LLM | Modelo local executado via Ollama (ex: Llama 3.2) |
 | Base de Conhecimento | Arquivos estruturados (`transacoes.csv`, `perfil_investidor.json`, `produtos_financeiros.json`, `historico_atendimento.csv`)|
-| Validação | Camada de restrição de prompt para prevenção de alucinações baseada estritamente nos dados fornecidos |
+| Validação | Camada de restrição de prompt local com execução offline e sem dependência de internet |
 
 ---
 
