@@ -11,45 +11,42 @@ Descreva se usou os arquivos da pasta `data`, por exemplo:
 | `produtos_financeiros.json` | JSON | Sugerir produtos adequados ao perfil |
 | `transacoes.csv` | CSV | Analisar padrão de gastos do cliente |
 
-> [!TIP]
-> **Quer um dataset mais robusto?** Você pode utilizar datasets públicos do [Hugging Face](https://huggingface.co/datasets) relacionados a finanças, desde que sejam adequados ao contexto do desafio.
-
 ---
 
 ## Adaptações nos Dados
 
-> Você modificou ou expandiu os dados mockados? Descreva aqui.
-
-[Sua descrição aqui]
+Os dados mockados originais foram mantidos em sua estrutura padrão para garantir a compatibilidade com os scripts de leitura da aplicação. Não houve necessidade de expansão externa, pois os arquivos fornecidos já contêm amostras representativas suficientes de transações, histórico de chamados e perfis de clientes.
 
 ---
 
 ## Estratégia de Integração
 
 ### Como os dados são carregados?
-> Descreva como seu agente acessa a base de conhecimento.
 
-[ex: Os JSON/CSV são carregados no início da sessão e incluídos no contexto do prompt]
+Os arquivos CSV (`transacoes.csv`, `historico_atendimento.csv`) são carregados utilizando a biblioteca `pandas` do Python, enquanto os arquivos JSON (`perfil_investidor.json`, `produtos_financeiros.json`) são carregados através do módulo nativo `json`.
 
 ### Como os dados são usados no prompt?
-> Os dados vão no system prompt? São consultados dinamicamente?
 
-[Sua descrição aqui]
+Os dados estruturados são lidos no início da execução da aplicação, convertidos em resumos textuais formatados e injetados dinamicamente no contexto do System Prompt da LLM (ou passados como contexto complementar a cada nova mensagem do usuário) para garantir que o modelo responda com base estrita nas informações do cliente.
 
 ---
 
 ## Exemplo de Contexto Montado
 
-> Mostre um exemplo de como os dados são formatados para o agente.
+```text
+=== PERFIL DO CLIENTE ===
+- Nome: Ana Souza
+- Perfil de Risco: Moderado
+- Tolerância à Volatilidade: Média
+- Patrimônio Alocado: R$ 25.000,00
 
-```
-Dados do Cliente:
-- Nome: João Silva
-- Perfil: Moderado
-- Saldo disponível: R$ 5.000
+=== ÚLTIMAS TRANSAÇÕES ===
+- 15/05/2026 | Supermercado Extra | R$ -350,00 | Débito
+- 18/05/2026 | Posto Shell | R$ -180,00 | Crédito
+- 20/05/2026 | Salário Empresa X | R$ +6.500,00 | Pix Recebido
 
-Últimas transações:
-- 01/11: Supermercado - R$ 450
-- 03/11: Streaming - R$ 55
-...
+=== PRODUTOS DISPONÍVEIS (Exemplo) ===
+- Fundo Renda Fixa IPCA+ (Risco Baixo)
+- Fundo Multimercado Balanceado (Risco Moderado)
+
 ```
